@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+<!--    &lt;!&ndash;配置通知类对象，在切面引入&ndash;&gt;-->
+<!--    <bean id="myBeforeAdvice" class="com.liyan.advice.MyBeforeAdvice"/>-->
+<!--    <bean id="myAfterAdvice" class="com.liyan.advice.MyAfterAdvice"/>-->
+<!--    &lt;!&ndash;配置切面&ndash;&gt;-->
+<!--  <aop:config>-->
+<!--      &lt;!&ndash;配置切点&ndash;&gt;-->
+<!--      <aop:pointcut id="mypointcut" expression="execution(* com.liyan.test.Demo.demo(..))"/>-->
+<!--      &lt;!&ndash;通知&ndash;&gt;-->
+<!--      <aop:advisor advice-ref="myBeforeAdvice" pointcut-ref="mypointcut"/>-->
+<!--      <aop:advisor advice-ref="myAfterAdvice" pointcut-ref="mypointcut"/>-->
+<!--  </aop:config>-->
+
+<!--    &lt;!&ndash;通知demo类&ndash;&gt;-->
+    <bean id="demo" class="com.liyan.test.Demo"/>
+    <bean class="com.liyan.advice.MyThrowAdvice" id="myThrowAdvice"/>
+    <aop:config>
+        <aop:aspect ref="myThrowAdvice">
+            <aop:pointcut id="mypoin" expression="execution(* com.liyan.test.Demo.demo1())"/>
+            <aop:after-throwing method="myexception" pointcut-ref="mypoin"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
