@@ -20,12 +20,32 @@
 <!--  </aop:config>-->
 
 <!--    &lt;!&ndash;通知demo类&ndash;&gt;-->
-    <bean id="demo" class="com.liyan.test.Demo"/>
-    <bean class="com.liyan.advice.MyThrowAdvice" id="myThrowAdvice"/>
+<!--    <bean id="demo" class="com.liyan.test.Demo"/>-->
+<!--    <bean class="com.liyan.advice.MyThrowAdvice" id="myThrowAdvice"/>-->
+<!--    <aop:config>-->
+<!--        <aop:aspect ref="myThrowAdvice">-->
+<!--            <aop:pointcut id="mypoin" expression="execution(* com.liyan.test.Demo.demo1())"/>-->
+<!--            <aop:after-throwing method="myexception" pointcut-ref="mypoin"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+    <!--异常通知-->
+<!--    <bean id="myThrowAdvice" class="com.liyan.advice.MyThrowAdvice"/>-->
+<!--    <aop:config>-->
+<!--&lt;!&ndash;        <aop:pointcut id="mypoin" expression="execution(* com.liyan.advice.MyThrowAdvice.afterThrowing(..))"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <aop:advisor advice-ref="myThrowAdvice" pointcut-ref="mypoin"/>&ndash;&gt;-->
+<!--        <aop:aspect ref="myThrowAdvice">-->
+<!--            <aop:pointcut id="mypioin" expression="execution(* com.liyan.test.Demo.demo1(..))"/>-->
+<!--            <aop:after-throwing method="afterThrowing" throwing="ex" pointcut-ref="mypioin"/>-->
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
+<!--    <bean class="com.liyan.test.Demo" id="demo"/>-->
+
+    <!--环绕通知-->
+    <bean id="myArround" class="com.liyan.advice.MyArround"/>
     <aop:config>
-        <aop:aspect ref="myThrowAdvice">
-            <aop:pointcut id="mypoin" expression="execution(* com.liyan.test.Demo.demo1())"/>
-            <aop:after-throwing method="myexception" pointcut-ref="mypoin"/>
-        </aop:aspect>
+        <aop:pointcut id="mypoin" expression="execution(* com.liyan.test.Demo.demo1())"/>
+        <aop:advisor advice-ref="myArround" pointcut-ref="mypoin"/>
     </aop:config>
+    <bean id="demo" class="com.liyan.test.Demo"/>
+
 </beans>
